@@ -8,15 +8,15 @@ console.log((function CoinDeterminer (num) { 'use strict';
   // Helpers
   //
 
-  var plusVals = function (amt) {
-    return vals.map(function (val) {
+  var plusVals = function( amt ) {
+    return vals.map(function( val) {
       return amt + val;
     });
   };
 
-  var lteqX = function (x) {
-    return function (arr) {
-      return arr.filter(function (element) {
+  var lteqX = function( x ) {
+    return function( arr ) {
+      return arr.filter(function( element ) {
         return element <= x;
       });
     };
@@ -24,7 +24,7 @@ console.log((function CoinDeterminer (num) { 'use strict';
 
   var lteqN = lteqX(num);
 
-  var mkNode = function (value, weight, parent) {
+  var mkNode = function( value, weight, parent ) {
     return {
       value: value,
       weight: weight,
@@ -32,8 +32,8 @@ console.log((function CoinDeterminer (num) { 'use strict';
     };
   };
 
-  var getNode = function (value) {
-    var compareFn = function (el) {
+  var getNode = function( value ) {
+    var compareFn = function( el ) {
       return value === el.value;
     };
     for (var i = 0; i < mesh.length; i++) {
@@ -43,16 +43,16 @@ console.log((function CoinDeterminer (num) { 'use strict';
     }
   };
 
-  var makeNeighbors = function (node) {
-    return plusVals(node.value).map(function (value) {
+  var makeNeighbors = function( node ) {
+    return plusVals(node.value).map(function( value ) {
       return mkNode(value, node.weight + 1, node.value);
-    }).filter(function (node) {
+    }).filter(function( node ) {
       return node.value <= num;
     });
   };
 
-  var addNeighbors = function (nodes) {
-    nodes.forEach(function (node) {
+  var addNeighbors = function( nodes ) {
+    nodes.forEach(function( node ) {
 
       var existing = getNode(node.value);
 
@@ -72,15 +72,15 @@ console.log((function CoinDeterminer (num) { 'use strict';
     return mesh;
   };
 
-  var getNodesByStep = function (step) {
-    return mesh.filter(function (el) {
+  var getNodesByStep = function( step ) {
+    return mesh.filter(function( el ) {
       return el.weight === step;
     });
   };
 
-  var stack = function (destNode) {
+  var stack = function( destNode ) {
     var stack = [];
-    var trace = function (node) {
+    var trace = function( node ) {
       stack.push(node);
       if (null === node.parent) {
         return stack;
@@ -91,15 +91,15 @@ console.log((function CoinDeterminer (num) { 'use strict';
     return trace(destNode);
   };
 
-  var parts = function (stack) {
+  var parts = function( stack ) {
     var parts = [];
-    for (var i = 0; i < stack.length - 1; i++) {
+    for ( var i = 0; i < stack.length - 1; i++ ) {
       parts.push(stack[i].value - stack[i+1].value);
     }
     return parts;
   };
 
-  var add = function (el) {
+  var add = function( el ) {
     addNeighbors(makeNeighbors(el));
   };
 
@@ -119,7 +119,7 @@ console.log((function CoinDeterminer (num) { 'use strict';
 
     step++;
 
-  } while (mesh.length > lengthApriori);
+  } while ( mesh.length > lengthApriori );
 
   if (!getNode(num)) {
     return 'impossible';

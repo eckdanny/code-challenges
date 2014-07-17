@@ -1,9 +1,21 @@
 {
+
+  "folders":
+  [
+    {
+      "path": ".",
+      "folder_exclude_patterns": [".git", ".tmp", ".sass-cache", "node_modules", "app/bower_components"]
+    }
+  ],
+
+
 	"folders":
 	[
 		{
 			"follow_symlinks": true,
-			"path": "."
+			"path": ".",
+      "folder_exclude_patterns": [".git"],
+      "file_exclude_patterns": ["*.sublime-workspace"]
 		}
 	],
   "SublimeLinter":
